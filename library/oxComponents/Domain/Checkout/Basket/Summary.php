@@ -1,0 +1,4 @@
+<?php
+/**
+ * #PHPHEADER_OXID_LICENSE_INFORMATION#
+ */ 
