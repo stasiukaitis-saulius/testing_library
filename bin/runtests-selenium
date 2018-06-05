@@ -31,10 +31,14 @@ if (end($arguments) == escapeshellarg('AllTestsSelenium')) {
     foreach ($testSuites as $suite) {
         $suiteReturnCode = runSuite($suite, $phpUnit, $arguments);
         $returnCode = $returnCode == 0 ? $suiteReturnCode : $returnCode;
+        $ccReturnCode = runCodeception($suite, $php);
+        $returnCode = $returnCode == 0 ? $ccReturnCode : $returnCode;
     }
 } else {
     $suite = $testConfig->getCurrentTestSuite();
     $returnCode = runSuite($suite, $phpUnit, $arguments);
+    $ccReturnCode = runCodeception($suite, $php);
+    $returnCode = $returnCode == 0 ? $ccReturnCode : $returnCode;
 }
 
 exit($returnCode);
@@ -60,5 +64,21 @@ function runSuite($suite, $phpUnit, $arguments)
     $suite = escapeshellarg($suite);
     passthru("TEST_SUITE=$suite $phpUnit $configuration $arguments", $return);
 
+    return $return;
+}
+
+function runCodeception($suite, $php)
+{
+    $return = 0;
+    $configurationFile = "$suite/Codeception/codeception.yml";
+    if (file_exists($configurationFile)) {
+        $testConfig = new OxidEsales\TestingLibrary\TestConfig();
+
+        $codecept = $testConfig->getVendorDirectory() . "/bin/codecept";
+
+        $configuration = "-c " . escapeshellarg($configurationFile);
+
+        passthru("$php $codecept $configuration run acceptance", $return);
+    }
     return $return;
 }
