@@ -18,7 +18,7 @@
         "symfony/dom-crawler": "v2.7.*",
         "symfony/filesystem": "^3.0",
         "oxid-esales/oxideshop-facts": "^2.0.0",
-        "oxid-esales/oxideshop-unified-namespace-generator": "^1.0.0"
+        "oxid-esales/oxideshop-unified-namespace-generator": "dev-remove_version_checker-OXDEV-1033"
     },
     "bin": [
         "bin/reset-shop",
