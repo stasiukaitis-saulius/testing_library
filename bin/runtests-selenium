@@ -78,7 +78,7 @@ function runCodeception($suite, $php)
 
         $configuration = "-c " . escapeshellarg($configurationFile);
 
-        passthru("TEST_SUITE=$suite $php $codecept $configuration run acceptance --xml --debug", $return);
+        passthru("TEST_SUITE=$suite $php $codecept $configuration run acceptance --xml --no-colors --steps", $return);
     }
     return $return;
 }
